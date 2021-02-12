@@ -1,13 +1,14 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+
+import AppText from "./AppText";
 
 function Heading({ children, style }) {
-	return <Text style={[styles.text, { ...style }]}>{children}</Text>;
+	return <AppText style={[styles.text, { ...style }]}>{children}</AppText>;
 }
 
 const styles = StyleSheet.create({
 	text: {
-		fontFamily: Platform.OS === "android" ? "Roboto" : "San Francisco",
 		fontSize: 22,
 		fontWeight: "bold",
 		color: "#303841",
