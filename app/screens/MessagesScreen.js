@@ -19,9 +19,27 @@ const initialMessages = [
 		description: "D2",
 		image: require("../assets/nuran.jpg"),
 	},
+	{
+		id: 3,
+		title: "T3",
+		description: "D3",
+		image: require("../assets/nuran.jpg"),
+	},
+	{
+		id: 4,
+		title: "T4",
+		description: "D4",
+		image: require("../assets/nuran.jpg"),
+	},
+	{
+		id: 5,
+		title: "T5",
+		description: "D5",
+		image: require("../assets/nuran.jpg"),
+	},
 ];
 
-function MessagesScreen(props) {
+function MessagesScreen() {
 	const [messages, setMessages] = useState(initialMessages);
 	const [refreshing, setRefreshing] = useState(false);
 
@@ -50,7 +68,7 @@ function MessagesScreen(props) {
 				onRefresh={() => {
 					setMessages([
 						{
-							id: 3,
+							id: 6,
 							title: "Refreshed",
 							description: "Refreshed Volahh",
 							image: require("../assets/nuran.jpg"),
