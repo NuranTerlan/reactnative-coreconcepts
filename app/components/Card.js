@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.white,
 		marginBottom: 20,
 		overflow: "hidden",
-		elevation: 35,
 	},
 	image: {
 		width: "100%",
