@@ -1,60 +1,49 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
-import { Formik } from "formik";
 import * as Yup from "yup";
 
 import CrossScreen from "../components/CrossScreen";
-import AppTextInput from "../components/AppTextInput";
 import { LoginButton } from "../components/Buttons/AuthButtons";
-import { AppText } from "../components/Texts";
+import AppFormField from "../components/forms/AppFormField";
+import AppForm from "../components/forms/AppForm";
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string().required().email().label("Email"),
 	password: Yup.string().required().min(4).label("Password"),
 });
 
-function LoginScreen(props) {
+function LoginScreen() {
 	return (
 		<CrossScreen style={styles.screen}>
 			<Image style={styles.logo} source={require("../assets/logo-red.png")} />
 
-			<Formik
+			<AppForm
 				initialValues={{ email: "", password: "" }}
 				onSubmit={(values) => console.log(values)}
 				validationSchema={validationSchema}
 			>
-				{({ handleChange, handleSubmit, errors }) => (
-					<>
-						<AppTextInput
-							placeholder="Email"
-							icon="email"
-							autoCapitalize="none"
-							autoCorrect={false}
-							keyboardType="email-address"
-							// textContentType ~ only works in ios devices
-							textContentType="emailAddress"
-							onChangeText={handleChange("email")}
-						/>
-						{errors.email && (
-							<AppText style={{ color: "red" }}>{errors.email}</AppText>
-						)}
-						<AppTextInput
-							placeholder="Password"
-							icon="lock"
-							autoCapitalize="none"
-							autoCorrect={false}
-							secureTextEntry
-							// textContentType ~ only works in ios devices
-							textContentType="password"
-							onChangeText={handleChange("password")}
-						/>
-						{errors.password && (
-							<AppText style={{ color: "red" }}>{errors.password}</AppText>
-						)}
-						<LoginButton style={styles.button} action={handleSubmit} />
-					</>
-				)}
-			</Formik>
+				<AppFormField
+					name="email"
+					placeholder="Email"
+					icon="email"
+					autoCapitalize="none"
+					autoCorrect={false}
+					keyboardType="email-address"
+					// textContentType ~ only works in ios devices
+					textContentType="emailAddress"
+				/>
+				<AppFormField
+					name="password"
+					placeholder="Password"
+					icon="lock"
+					autoCapitalize="none"
+					autoCorrect={false}
+					secureTextEntry
+					// textContentType ~ only works in ios devices
+					textContentType="password"
+				/>
+				<LoginButton style={styles.button} />
+			</AppForm>
 		</CrossScreen>
 	);
 }
