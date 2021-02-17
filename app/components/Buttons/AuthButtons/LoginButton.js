@@ -4,11 +4,11 @@ import { View } from "react-native";
 import colors from "../../../config/colors";
 import AuthButton from "./AuthButton";
 
-function LoginButton({ style }) {
+function LoginButton({ action, style }) {
 	return (
 		<View style={style}>
 			<AuthButton
-				action={() => console.log("Login")}
+				action={action ? action : () => console.log("Login")}
 				type="Login"
 				bg={colors.primary}
 			/>
