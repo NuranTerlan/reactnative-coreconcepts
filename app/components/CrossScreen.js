@@ -12,7 +12,7 @@ function CrossScreen({ children, bg = "#fff", style }) {
 				styles.screen,
 			]}
 		>
-			<View style={[{ ...style }]}>{children}</View>
+			<View style={[styles.view, { ...style }]}>{children}</View>
 		</SafeAreaView>
 	);
 }
@@ -20,6 +20,9 @@ function CrossScreen({ children, bg = "#fff", style }) {
 const styles = StyleSheet.create({
 	screen: {
 		paddingTop: Constants.statusBarHeight,
+		flex: 1,
+	},
+	view: {
 		flex: 1,
 	},
 });

@@ -13,7 +13,15 @@ import colors from "../config/colors";
 import { AppText } from "./Texts";
 import PickerItem from "./PickerItem";
 
-function AppPicker({ icon, placeholder, onSelectItem, selectedItem, items }) {
+function AppPicker({
+	icon,
+	placeholder,
+	onSelectItem,
+	selectedItem,
+	items,
+	PickerItemComponent = PickerItem,
+	numberOfColumns = 1,
+}) {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 
 	return (
@@ -28,9 +36,11 @@ function AppPicker({ icon, placeholder, onSelectItem, selectedItem, items }) {
 							style={styles.icon}
 						/>
 					)}
-					<AppText style={styles.text}>
-						{selectedItem ? selectedItem.label : placeholder}
-					</AppText>
+					{selectedItem ? (
+						<AppText style={styles.text}>{selectedItem.label}</AppText>
+					) : (
+						<AppText style={styles.placeholder}>{placeholder}</AppText>
+					)}
 					<MaterialCommunityIcons
 						name="chevron-down"
 						size={20}
@@ -40,19 +50,22 @@ function AppPicker({ icon, placeholder, onSelectItem, selectedItem, items }) {
 			</TouchableWithoutFeedback>
 			<Modal visible={isModalVisible} animationType="slide">
 				<Button title="Close" onPress={() => setIsModalVisible(false)} />
-				<FlatList
-					data={items}
-					keyExtractor={(item) => item.value.toString()}
-					renderItem={({ item }) => (
-						<PickerItem
-							label={item.label}
-							onPress={() => {
-								setIsModalVisible(false);
-								onSelectItem(item);
-							}}
-						/>
-					)}
-				/>
+				<View style={styles.list}>
+					<FlatList
+						data={items}
+						keyExtractor={(item) => item.value.toString()}
+						numColumns={numberOfColumns}
+						renderItem={({ item }) => (
+							<PickerItemComponent
+								item={item}
+								onPress={() => {
+									setIsModalVisible(false);
+									onSelectItem(item);
+								}}
+							/>
+						)}
+					/>
+				</View>
 			</Modal>
 		</>
 	);
@@ -72,8 +85,15 @@ const styles = StyleSheet.create({
 	text: {
 		flex: 1,
 	},
+	placeholder: {
+		color: colors.medium,
+		flex: 1,
+	},
 	icon: {
 		marginRight: 10,
+	},
+	list: {
+		alignItems: "center",
 	},
 });
 
